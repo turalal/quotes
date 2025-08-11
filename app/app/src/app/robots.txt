@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://daily-quotes-app.vercel.app/sitemap.xml
