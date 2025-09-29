@@ -75,10 +75,6 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadQuotes();
-  }, [currentCategory]);
-
   const loadQuotes = async () => {
     setIsLoading(true);
     setError(null);
@@ -104,6 +100,10 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadQuotes();
+  }, [currentCategory]);
 
   const currentQuote = quotes[currentQuoteIndex];
 
@@ -250,7 +250,7 @@ export default function Home() {
                   {/* Quote Text */}
                   <div className="mb-8">
                     <div className="text-6xl md:text-8xl font-bold text-white/10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 select-none">
-                      "
+                      &ldquo;
                     </div>
                     <blockquote className="text-xl md:text-3xl font-light text-white leading-relaxed relative z-10 mb-6">
                       {currentQuote.text}
