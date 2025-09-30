@@ -37,13 +37,14 @@ const generateGradientColor = (id: number, category: string) => {
 };
 
 const categories = [
-  { id: 'all', name: 'All', icon: '🌟', color: 'from-gray-600 to-gray-800' },
-  { id: 'life', name: 'Life', icon: '🌱', color: 'from-green-600 to-teal-600' },
-  { id: 'inspiration', name: 'Inspiration', icon: '✨', color: 'from-purple-600 to-blue-600' },
-  { id: 'motivation', name: 'Motivation', icon: '💪', color: 'from-orange-600 to-red-600' },
-  { id: 'wisdom', name: 'Wisdom', icon: '🧠', color: 'from-indigo-600 to-purple-600' },
-  { id: 'success', name: 'Success', icon: '🎯', color: 'from-yellow-500 to-orange-600' },
-  { id: 'happiness', name: 'Happiness', icon: '😊', color: 'from-pink-500 to-rose-600' }
+  { id: 'all', name: 'All', icon: '🌟', color: 'from-gray-600 to-gray-800', searchTerm: '' },
+  { id: 'inspirational', name: 'Inspirational', icon: '✨', color: 'from-purple-600 to-blue-600', searchTerm: 'inspirational' },
+  { id: 'life', name: 'Life', icon: '🌱', color: 'from-green-600 to-teal-600', searchTerm: 'life' },
+  { id: 'love', name: 'Love', icon: '❤️', color: 'from-pink-500 to-rose-600', searchTerm: 'love' },
+  { id: 'wisdom', name: 'Wisdom', icon: '🧠', color: 'from-indigo-600 to-purple-600', searchTerm: 'wisdom' },
+  { id: 'philosophy', name: 'Philosophy', icon: '🤔', color: 'from-slate-600 to-indigo-600', searchTerm: 'philosophy' },
+  { id: 'spirituality', name: 'Spirituality', icon: '🕉️', color: 'from-yellow-500 to-orange-600', searchTerm: 'spirituality' },
+  { id: 'humor', name: 'Humor', icon: '😄', color: 'from-orange-500 to-red-500', searchTerm: 'humor' }
 ];
 
 interface Quote {
@@ -78,21 +79,22 @@ export default function Home() {
   const loadQuotes = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
+      const selectedCategory = categories.find(c => c.id === currentCategory);
       let url = `${API_BASE_URL}/api/quotes?limit=50`;
-      
-      if (currentCategory !== 'all') {
-        url += `&category=${currentCategory}`;
+
+      if (selectedCategory && selectedCategory.searchTerm) {
+        url += `&search=${encodeURIComponent(selectedCategory.searchTerm)}`;
       }
-      
+
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch quotes');
-      
+
       const data = await response.json();
       setQuotes(data.quotes || []);
       setCurrentQuoteIndex(0);
-      
+
     } catch (err) {
       console.error('Error loading quotes:', err);
       setError('Failed to load quotes. Please try again.');
@@ -161,15 +163,15 @@ export default function Home() {
 
       {/* Header */}
       <header className="relative z-10 bg-black/20 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="text-3xl animate-spin-slow">🌍</div>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-2xl sm:text-3xl animate-spin-slow">🌍</div>
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                   saying.to
                 </h1>
-                <p className="text-xs text-gray-400">Wisdom from every corner of Earth</p>
+                <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">Wisdom from every corner of Earth</p>
               </div>
             </div>
           </div>
@@ -177,10 +179,10 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 py-8">
-        
+      <main className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-4 mb-12 justify-center">
+        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-12 justify-center">
           {categories.map(category => (
             <button
               key={category.id}
@@ -189,18 +191,18 @@ export default function Home() {
                 setCurrentQuoteIndex(0);
               }}
               disabled={isLoading}
-              className={`group relative px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                 currentCategory === category.id
                   ? `bg-gradient-to-r ${category.color} text-white shadow-2xl shadow-purple-500/25`
                   : 'bg-white/10 backdrop-blur text-gray-300 hover:bg-white/20 border border-white/20'
               }`}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">{category.icon}</span>
-                {category.name}
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-base sm:text-lg">{category.icon}</span>
+                <span className="hidden xs:inline">{category.name}</span>
               </div>
               {currentCategory === category.id && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse rounded-xl sm:rounded-2xl"></div>
               )}
             </button>
           ))}
@@ -231,8 +233,8 @@ export default function Home() {
         {/* Quote Card */}
         {!isLoading && !error && currentQuote && (
           <div className={`transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-            <div className={`relative bg-gradient-to-br ${generateGradientColor(currentQuote.id, currentQuote.category)} p-1 rounded-3xl shadow-2xl max-w-4xl mx-auto mb-8`}>
-              <div className="bg-black/30 backdrop-blur-xl rounded-3xl p-8 md:p-12">
+            <div className={`relative bg-gradient-to-br ${generateGradientColor(currentQuote.id, currentQuote.category)} p-1 rounded-2xl sm:rounded-3xl shadow-2xl max-w-4xl mx-auto mb-6 sm:mb-8`}>
+              <div className="bg-black/30 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12">
                 
                 {/* Decorative Elements */}
                 <div className="absolute top-4 left-4">
@@ -248,22 +250,22 @@ export default function Home() {
 
                 <div className="text-center relative">
                   {/* Quote Text */}
-                  <div className="mb-8">
-                    <div className="text-6xl md:text-8xl font-bold text-white/10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 select-none">
+                  <div className="mb-6 sm:mb-8">
+                    <div className="text-4xl sm:text-6xl md:text-8xl font-bold text-white/10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 sm:-translate-y-4 select-none">
                       &ldquo;
                     </div>
-                    <blockquote className="text-xl md:text-3xl font-light text-white leading-relaxed relative z-10 mb-6">
+                    <blockquote className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-white leading-relaxed relative z-10 mb-4 sm:mb-6 px-2">
                       {currentQuote.text}
                     </blockquote>
                   </div>
-                  
+
                   {/* Author */}
-                  <div className="flex items-center justify-center gap-3 mb-6">
-                    <div className="w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
-                    <p className="text-lg text-cyan-200 font-medium">
+                  <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+                    <p className="text-sm sm:text-base md:text-lg text-cyan-200 font-medium">
                       {currentQuote.author || 'Unknown'}
                     </p>
-                    <div className="w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+                    <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                   </div>
                   
                   {/* Tags */}
@@ -281,24 +283,25 @@ export default function Home() {
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex flex-wrap gap-4 justify-center items-center">
-                    <button 
+                  <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center items-center">
+                    <button
                       onClick={nextQuote}
                       disabled={isLoading || quotes.length <= 1}
-                      className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl font-bold hover:from-cyan-400 hover:to-blue-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="group px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:from-cyan-400 hover:to-blue-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <span className="flex items-center gap-2">
-                        Next Quote 
+                      <span className="flex items-center gap-1.5 sm:gap-2">
+                        <span className="hidden sm:inline">Next Quote</span>
+                        <span className="sm:hidden">Next</span>
                         <span className="group-hover:translate-x-1 transition-transform">🚀</span>
                       </span>
                     </button>
-                    
-                    <button 
+
+                    <button
                       onClick={copyToClipboard}
-                      className="px-6 py-4 bg-white/20 backdrop-blur text-white rounded-2xl font-bold hover:bg-white/30 transition-all transform hover:scale-105"
+                      className="px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-4 bg-white/20 backdrop-blur text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-white/30 transition-all transform hover:scale-105"
                     >
-                      <span className="flex items-center gap-2">
-                        📋 Copy
+                      <span className="flex items-center gap-1.5 sm:gap-2">
+                        📋 <span className="hidden sm:inline">Copy</span>
                       </span>
                     </button>
                   </div>
@@ -320,40 +323,40 @@ export default function Home() {
         {/* Share Buttons - Enhanced with all platforms */}
         {!isLoading && !error && currentQuote && (
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 border border-white/20">
-              <h3 className="text-center text-lg font-bold text-cyan-300 mb-6">
+            <div className="bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-white/20">
+              <h3 className="text-center text-base sm:text-lg font-bold text-cyan-300 mb-4 sm:mb-6">
                 📢 Share the Wisdom
               </h3>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <button 
+              <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center">
+                <button
                   onClick={() => shareQuote('whatsapp')}
-                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-xl font-medium hover:scale-105 transition-all shadow-lg"
+                  className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
                 >
-                  📱 WhatsApp
+                  📱 <span className="hidden sm:inline">WhatsApp</span>
                 </button>
-                <button 
+                <button
                   onClick={() => shareQuote('instagram')}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-medium hover:scale-105 transition-all shadow-lg"
+                  className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
                 >
-                  📷 Instagram
+                  📷 <span className="hidden sm:inline">Instagram</span>
                 </button>
-                <button 
+                <button
                   onClick={() => shareQuote('telegram')}
-                  className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-medium hover:scale-105 transition-all shadow-lg"
+                  className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
                 >
-                  ✈️ Telegram
+                  ✈️ <span className="hidden sm:inline">Telegram</span>
                 </button>
-                <button 
+                <button
                   onClick={() => shareQuote('facebook')}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl font-medium hover:scale-105 transition-all shadow-lg"
+                  className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
                 >
-                  📘 Facebook
+                  📘 <span className="hidden sm:inline">Facebook</span>
                 </button>
-                <button 
+                <button
                   onClick={() => shareQuote('twitter')}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl font-medium hover:scale-105 transition-all shadow-lg"
+                  className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
                 >
-                  𝕏 Twitter
+                  𝕏 <span className="hidden sm:inline">Twitter</span>
                 </button>
               </div>
             </div>
@@ -362,26 +365,26 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-black/30 backdrop-blur-lg mt-20 py-12 border-t border-white/10">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="mb-6">
-            <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
+      <footer className="relative z-10 bg-black/30 backdrop-blur-lg mt-10 sm:mt-16 md:mt-20 py-8 sm:py-10 md:py-12 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
               saying.to 🌍
             </h3>
-            <p className="text-gray-400">
+            <p className="text-sm sm:text-base text-gray-400">
               Wisdom from every corner of Earth
             </p>
           </div>
-          <div className="flex justify-center gap-8 text-sm text-gray-300 mb-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-gray-300 mb-4 sm:mb-6">
             <a href="#" className="hover:text-cyan-400 transition-colors">✨ About</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">📝 Submit</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">🚀 API</a>
             <a href="#" className="hover:text-cyan-400 transition-colors">📧 Contact</a>
           </div>
-          <div className="text-xs text-gray-500 space-y-2">
+          <div className="text-xs text-gray-500 space-y-1 sm:space-y-2">
             <p>Made with ❤️ for quote lovers worldwide</p>
             {!isLoading && quotes.length > 0 && (
-              <p>Currently showing {quotes.length} inspiring quotes</p>
+              <p className="hidden sm:block">Currently showing {quotes.length} inspiring quotes</p>
             )}
           </div>
         </div>
