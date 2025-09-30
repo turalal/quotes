@@ -151,7 +151,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden" role="application" aria-label="Inspirational Quotes Application">
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -182,7 +182,7 @@ export default function Home() {
       <main className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-12 justify-center">
+        <nav aria-label="Quote categories" className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-12 justify-center">
           {categories.map(category => (
             <button
               key={category.id}
@@ -191,6 +191,8 @@ export default function Home() {
                 setCurrentQuoteIndex(0);
               }}
               disabled={isLoading}
+              aria-label={`Filter by ${category.name} quotes`}
+              aria-pressed={currentCategory === category.id}
               className={`group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                 currentCategory === category.id
                   ? `bg-gradient-to-r ${category.color} text-white shadow-2xl shadow-purple-500/25`
@@ -198,7 +200,7 @@ export default function Home() {
               }`}
             >
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-base sm:text-lg">{category.icon}</span>
+                <span className="text-base sm:text-lg" aria-hidden="true">{category.icon}</span>
                 <span className="hidden xs:inline">{category.name}</span>
               </div>
               {currentCategory === category.id && (
@@ -206,12 +208,12 @@ export default function Home() {
               )}
             </button>
           ))}
-        </div>
+        </nav>
 
         {/* Loading State */}
         {isLoading && (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mb-4"></div>
+          <div className="text-center py-12" role="status" aria-live="polite">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mb-4" aria-hidden="true"></div>
             <p className="text-white/70 text-lg">Loading amazing quotes...</p>
           </div>
         )}
@@ -232,7 +234,7 @@ export default function Home() {
 
         {/* Quote Card */}
         {!isLoading && !error && currentQuote && (
-          <div className={`transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+          <article className={`transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`} aria-live="polite">
             <div className={`relative bg-gradient-to-br ${generateGradientColor(currentQuote.id, currentQuote.category)} p-1 rounded-2xl sm:rounded-3xl shadow-2xl max-w-4xl mx-auto mb-6 sm:mb-8`}>
               <div className="bg-black/30 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12">
                 
@@ -287,28 +289,30 @@ export default function Home() {
                     <button
                       onClick={nextQuote}
                       disabled={isLoading || quotes.length <= 1}
+                      aria-label="Show next quote"
                       className="group px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:from-cyan-400 hover:to-blue-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="flex items-center gap-1.5 sm:gap-2">
                         <span className="hidden sm:inline">Next Quote</span>
                         <span className="sm:hidden">Next</span>
-                        <span className="group-hover:translate-x-1 transition-transform">🚀</span>
+                        <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">🚀</span>
                       </span>
                     </button>
 
                     <button
                       onClick={copyToClipboard}
+                      aria-label="Copy quote to clipboard"
                       className="px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-4 bg-white/20 backdrop-blur text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-white/30 transition-all transform hover:scale-105"
                     >
                       <span className="flex items-center gap-1.5 sm:gap-2">
-                        📋 <span className="hidden sm:inline">Copy</span>
+                        <span aria-hidden="true">📋</span> <span className="hidden sm:inline">Copy</span>
                       </span>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </article>
         )}
 
         {/* No Quotes State */}
@@ -389,12 +393,6 @@ export default function Home() {
             <p className="text-sm sm:text-base text-gray-400">
               Wisdom from every corner of Earth
             </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-gray-300 mb-4 sm:mb-6">
-            <a href="#" className="hover:text-cyan-400 transition-colors">✨ About</a>
-            <a href="#" className="hover:text-cyan-400 transition-colors">📝 Submit</a>
-            <a href="#" className="hover:text-cyan-400 transition-colors">🚀 API</a>
-            <a href="#" className="hover:text-cyan-400 transition-colors">📧 Contact</a>
           </div>
           <div className="text-xs text-gray-500 space-y-1 sm:space-y-2">
             <p>Made with ❤️ for quote lovers worldwide</p>
