@@ -9,11 +9,11 @@ interface QuoteCardProps {
 
 export default function QuoteCard({ quote, onShare }: QuoteCardProps) {
   const handleCopy = () => {
-    navigator.clipboard.writeText(`"${quote.quote}" - ${quote.author}`);
+    navigator.clipboard.writeText(`"${quote.text}" - ${quote.author}`);
   };
 
   const handleTwitterShare = () => {
-    const text = encodeURIComponent(`&ldquo;${quote.quote}&rdquo; - ${quote.author}`);
+    const text = encodeURIComponent(`&ldquo;${quote.text}&rdquo; - ${quote.author}`);
     const url = `https://twitter.com/intent/tweet?text=${text}`;
     window.open(url, '_blank');
   };
@@ -21,7 +21,7 @@ export default function QuoteCard({ quote, onShare }: QuoteCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 m-4 max-w-2xl mx-auto transition-all duration-300 hover:shadow-xl">
       <blockquote className="text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 italic leading-relaxed">
-        &ldquo;{quote.quote}&rdquo;
+        &ldquo;{quote.text}&rdquo;
       </blockquote>
       
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">

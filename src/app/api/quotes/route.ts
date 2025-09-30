@@ -12,16 +12,16 @@ export async function GET(request: NextRequest) {
     const random = searchParams.get('random');
     const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50); // Cap at 50
     
-    let query = 'SELECT "quote", author, category FROM quotes.quotes WHERE "quote" IS NOT NULL AND author IS NOT NULL';
+    let query = 'SELECT "quote" as text, author, category FROM quotes.quotes WHERE "quote" IS NOT NULL AND author IS NOT NULL';
     let params: any[] = [];
-    
+
     if (search && search.trim()) {
       const searchPattern = `%${search.trim().toLowerCase()}%`;
       query += ` AND (LOWER("quote") LIKE $${params.length + 1} OR LOWER(author) LIKE $${params.length + 1} OR LOWER(category) LIKE $${params.length + 1})`;
       params.push(searchPattern);
     }
-    
-    if (category) {
+
+    if (category && category !== 'all') {
       query += ` AND author = $${params.length + 1}`;
       params.push(category);
     }

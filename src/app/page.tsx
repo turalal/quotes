@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 
-// API Configuration - updated for browser environment
-const API_BASE_URL = 'https://api.saying.to';
+// API Configuration - use local API routes
+const API_BASE_URL = '';
 
 // Generate gradient colors for quotes
 const generateGradientColor = (id: number, category: string) => {

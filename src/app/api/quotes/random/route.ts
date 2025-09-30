@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const result = await pool.query(
-      'SELECT "quote", author, category FROM quotes.quotes ORDER BY RANDOM() LIMIT 1'
+      'SELECT "quote" as text, author, category FROM quotes.quotes ORDER BY RANDOM() LIMIT 1'
     );
     
     const quote: Quote | null = result.rows[0] || null;

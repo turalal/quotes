@@ -1,7 +1,9 @@
 export interface Quote {
-  quote: string;
+  id?: number;
+  text: string;
   author: string;
   category: string;
+  tags?: string[];
 }
 
 export interface QuoteResponse {
