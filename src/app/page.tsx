@@ -176,6 +176,13 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <head>
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3719459726247715"
+    crossOrigin="anonymous"></script>
+</head>
+
       </header>
 
       {/* Main Content */}
