@@ -53,19 +53,6 @@ interface Quote {
   tags?: string[];
 }
 
-const FloatingElement = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <div 
-    className="animate-bounce"
-    style={{ 
-      animationDelay: `${delay}s`,
-      animationDuration: '3s',
-      animationIterationCount: 'infinite'
-    }}
-  >
-    {children}
-  </div>
-);
-
 export default function Home() {
   const [currentCategory, setCurrentCategory] = useState('all');
   const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -150,21 +137,20 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-20 h-20 bg-yellow-400 rounded-full opacity-10 animate-ping"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-pink-400 rounded-full opacity-10 animate-pulse"></div>
-        <div className="absolute bottom-32 left-1/4 w-12 h-12 bg-cyan-400 rounded-full opacity-10 animate-bounce"></div>
-        <div className="absolute top-1/2 right-10 w-8 h-8 bg-green-400 rounded-full opacity-10 animate-spin"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-yellow-400 rounded-full opacity-5 animate-ping"></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-pink-400 rounded-full opacity-5 animate-pulse"></div>
+        <div className="absolute bottom-32 left-1/4 w-12 h-12 bg-cyan-400 rounded-full opacity-5 animate-bounce"></div>
+        <div className="absolute top-1/2 right-10 w-8 h-8 bg-green-400 rounded-full opacity-5 animate-spin"></div>
       </div>
 
-      {/* New Header Design */}
-      <header className="relative z-10 py-16 md:py-20 text-center" style={{ borderBottom: '1px solid #0FA4AF' }}>
+      {/* Header */}
+      <header className="relative z-10 py-16 md:py-20 text-center border-b border-white/5">
         <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          {/* Ripple Icon */}
           <div className="mb-8 flex justify-center">
-            <svg className="w-32 h-32 md:w-40 md:h-40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-28 h-28 md:w-36 md:h-36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="50" cy="50" r="4" fill="#0FA4AF"/>
               <circle cx="50" cy="50" r="16" stroke="#0FA4AF" strokeWidth="1.5" opacity="0.7"/>
               <circle cx="50" cy="50" r="32" stroke="#0FA4AF" strokeWidth="1.5" opacity="0.5"/>
@@ -172,35 +158,32 @@ export default function Home() {
             </svg>
           </div>
           
-          {/* Title */}
-          <h1 className="text-6xl md:text-8xl font-thin tracking-wider mb-4" style={{ color: '#0FA4AF' }}>
+          <h1 className="text-6xl md:text-7xl font-extralight tracking-wider mb-3" style={{ color: '#0FA4AF', letterSpacing: '0.15em' }}>
             SAYING
           </h1>
           
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl font-light" style={{ color: '#0FA4AF' }}>
-            Words that echo in silence
+          <p className="text-sm md:text-base font-light" style={{ color: '#0FA4AF', opacity: 0.8 }}>
+            A quiet place for loud thoughts
           </p>
         </div>
       </header>
 
-      {/* Welcome Section */}
-      <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 pt-6 sm:pt-8 pb-4 sm:pb-6">
-        <div className="bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-white/20 shadow-2xl">
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent mb-4">
-              Welcome to Saying
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              A clean and inspiring space where you can discover meaningful quotes, reflections, and short thoughts about life, happiness, and success. Every line here is created to spark inspiration and positive thinking.
-            </p>
-          </div>
+      {/* Welcome Section - Refined */}
+      <div className="relative z-10 max-w-3xl mx-auto px-3 sm:px-4 pt-10 sm:pt-12 pb-8 sm:pb-10">
+        <div className="text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light mb-3 text-gray-100">
+            Discover words that heal, provoke, and linger
+          </h2>
+          <p className="text-sm text-gray-400 font-light leading-relaxed">
+            Meaningful reflections on life, love, wisdom, and the human experience
+          </p>
         </div>
       </div>
 
-      <main className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <main className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
 
-        <nav className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-12 justify-center">
+        {/* Category Navigation */}
+        <nav className="flex flex-wrap gap-2 sm:gap-3 mb-12 sm:mb-16 justify-center">
           {categories.map(category => (
             <button
               key={category.id}
@@ -209,200 +192,180 @@ export default function Home() {
                 setCurrentQuoteIndex(0);
               }}
               disabled={isLoading}
-              className={`group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-                currentCategory === category.id
-                  ? `bg-gradient-to-r ${category.color} text-white shadow-2xl shadow-purple-500/25`
-                  : 'bg-white/10 backdrop-blur text-gray-300 hover:bg-white/20 border border-white/20'
-              }`}
+              className="relative px-4 sm:px-5 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 hover:scale-105 disabled:opacity-50"
+              style={{
+                backgroundColor: currentCategory === category.id ? '#0FA4AF' : 'rgba(255,255,255,0.05)',
+                color: currentCategory === category.id ? '#003135' : '#0FA4AF',
+                border: currentCategory === category.id ? 'none' : '1px solid rgba(15, 164, 175, 0.2)'
+              }}
             >
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-base sm:text-lg">{category.icon}</span>
-                <span className="hidden xs:inline">{category.name}</span>
-              </div>
-              {currentCategory === category.id && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse rounded-xl sm:rounded-2xl"></div>
-              )}
+              <span>{category.icon}</span>
+              <span className="hidden xs:inline ml-1.5">{category.name}</span>
             </button>
           ))}
         </nav>
 
+        {/* Loading State */}
         {isLoading && (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mb-4"></div>
-            <p className="text-white/70 text-lg">Loading amazing quotes...</p>
+          <div className="text-center py-24">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: '#0FA4AF' }} mb-4></div>
+            <p className="text-gray-400 text-base font-light mt-4">Loading your next moment of clarity...</p>
           </div>
         )}
 
+        {/* Error State */}
         {error && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">😞</div>
-            <p className="text-red-400 text-lg mb-4">{error}</p>
+          <div className="text-center py-24">
+            <div className="text-5xl mb-4">✕</div>
+            <p className="text-gray-300 text-base mb-6 font-light">{error}</p>
             <button 
               onClick={loadQuotes}
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl font-bold hover:from-cyan-400 hover:to-blue-500 transition-all transform hover:scale-105"
+              className="px-6 py-2.5 text-white rounded-lg font-medium transition-all hover:scale-105"
+              style={{ backgroundColor: '#0FA4AF', color: '#003135' }}
             >
               Try Again
             </button>
           </div>
         )}
 
+        {/* Quote Display */}
         {!isLoading && !error && currentQuote && (
-          <article className={`transition-all duration-500 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-            <div className={`relative bg-gradient-to-br ${generateGradientColor(currentQuote.id, currentQuote.category)} p-1 rounded-2xl sm:rounded-3xl shadow-2xl max-w-4xl mx-auto mb-6 sm:mb-8`}>
-              <div className="bg-black/30 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12">
+          <article className={`transition-all duration-700 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+            {/* Quote Card */}
+            <div className={`relative bg-gradient-to-br ${generateGradientColor(currentQuote.id, currentQuote.category)} p-0.5 rounded-2xl max-w-4xl mx-auto mb-10`}
+              style={{
+                boxShadow: '0 20px 60px rgba(15, 164, 175, 0.15)'
+              }}>
+              <div className="bg-gradient-to-b from-slate-900/95 to-purple-950/95 backdrop-blur-xl rounded-2xl px-8 sm:px-10 md:px-14 py-16 sm:py-20">
                 
-                <div className="absolute top-4 left-4">
-                  <FloatingElement delay={0}>
-                    <div className="text-2xl opacity-30">💭</div>
-                  </FloatingElement>
-                </div>
-                <div className="absolute top-4 right-4">
-                  <FloatingElement delay={1}>
-                    <div className="text-2xl opacity-30">✨</div>
-                  </FloatingElement>
-                </div>
+                <div className="text-center">
+                  {/* Main Quote Text - Large & Clear */}
+                  <blockquote className="text-2xl sm:text-4xl md:text-5xl font-light leading-relaxed mb-10 text-white">
+                    {'\u201c'}{currentQuote.text}{'\u201d'}
+                  </blockquote>
 
-                <div className="text-center relative">
-                  <div className="mb-6 sm:mb-8">
-                    <div className="text-4xl sm:text-6xl md:text-8xl font-bold text-white/10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 sm:-translate-y-4 select-none">
-                      &ldquo;
-                    </div>
-                    <blockquote className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-white leading-relaxed relative z-10 mb-4 sm:mb-6 px-2">
-                      {currentQuote.text}
-                    </blockquote>
-                  </div>
-
-                  <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                    <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
-                    <p className="text-sm sm:text-base md:text-lg text-cyan-200 font-medium">
+                  {/* Author - Dimmed & Smaller */}
+                  <div className="flex items-center justify-center gap-3 mb-12">
+                    <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></div>
+                    <p className="text-sm md:text-base font-light" style={{ color: '#b0b0b0' }}>
                       {currentQuote.author || 'Unknown'}
                     </p>
-                    <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+                    <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></div>
                   </div>
                   
+                  {/* Tags */}
                   {currentQuote.tags && currentQuote.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-3 justify-center mb-8">
+                    <div className="flex flex-wrap gap-2 justify-center mb-12">
                       {currentQuote.tags.map((tag, index) => (
                         <span 
                           key={index}
-                          className="px-4 py-2 bg-white/20 backdrop-blur text-white text-sm rounded-full border border-white/30 hover:bg-white/30 transition-colors"
+                          className="px-3 py-1 text-xs font-light rounded-full"
+                          style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.3)' }}
                         >
-                          #{tag}
+                          {tag}
                         </span>
                       ))}
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center items-center">
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-4 sm:gap-6 justify-center items-center">
                     <button
                       onClick={nextQuote}
                       disabled={isLoading || quotes.length <= 1}
-                      className="group px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:from-cyan-400 hover:to-blue-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-8 py-3 rounded-lg font-medium text-sm transition-all hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: '#0FA4AF', color: '#003135' }}
                     >
-                      <span className="flex items-center gap-1.5 sm:gap-2">
-                        <span className="hidden sm:inline">Next Quote</span>
-                        <span className="sm:hidden">Next</span>
-                        <span className="group-hover:translate-x-1 transition-transform">🚀</span>
-                      </span>
+                      Next Quote
                     </button>
 
                     <button
                       onClick={copyToClipboard}
-                      className="px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-4 bg-white/20 backdrop-blur text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-white/30 transition-all transform hover:scale-105"
+                      className="px-8 py-3 rounded-lg font-medium text-sm transition-all hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.3)' }}
                     >
-                      <span className="flex items-center gap-1.5 sm:gap-2">
-                        <span>📋</span> <span className="hidden sm:inline">Copy</span>
-                      </span>
+                      Copy Quote
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Share Section - Better Spacing */}
+            <div className="max-w-4xl mx-auto mt-12">
+              <div className="border-t border-white/10 pt-8 pb-2">
+                <p className="text-center text-xs font-medium mb-6" style={{ color: '#0FA4AF', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  Share
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <button
+                    onClick={() => shareQuote('whatsapp')}
+                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                  >
+                    WhatsApp
+                  </button>
+                  <button
+                    onClick={() => shareQuote('instagram')}
+                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                  >
+                    Instagram
+                  </button>
+                  <button
+                    onClick={() => shareQuote('telegram')}
+                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                  >
+                    Telegram
+                  </button>
+                  <button
+                    onClick={() => shareQuote('facebook')}
+                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                  >
+                    Facebook
+                  </button>
+                  <button
+                    onClick={() => shareQuote('twitter')}
+                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                  >
+                    Twitter
+                  </button>
                 </div>
               </div>
             </div>
           </article>
         )}
 
+        {/* Empty State */}
         {!isLoading && !error && quotes.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">📚</div>
-            <p className="text-white/70 text-lg mb-4">No quotes found for this category.</p>
-            <p className="text-white/50 text-sm">Try selecting a different category.</p>
-          </div>
-        )}
-
-        {!isLoading && !error && currentQuote && (
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-white/20">
-              <h3 className="text-center text-base sm:text-lg font-bold text-cyan-300 mb-4 sm:mb-6">
-                📢 Share the Wisdom
-              </h3>
-              <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center">
-                <button
-                  onClick={() => shareQuote('whatsapp')}
-                  className="flex items-center gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
-                >
-                  <span>📱</span>
-                  <span className="hidden sm:inline">WhatsApp</span>
-                </button>
-                <button
-                  onClick={() => shareQuote('instagram')}
-                  className="flex items-center gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 hover:opacity-90 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
-                >
-                  <span>📷</span>
-                  <span className="hidden sm:inline">Instagram</span>
-                </button>
-                <button
-                  onClick={() => shareQuote('telegram')}
-                  className="flex items-center gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
-                >
-                  <span>✈️</span>
-                  <span className="hidden sm:inline">Telegram</span>
-                </button>
-                <button
-                  onClick={() => shareQuote('facebook')}
-                  className="flex items-center gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-blue-700 hover:bg-blue-800 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
-                >
-                  <span>👍</span>
-                  <span className="hidden sm:inline">Facebook</span>
-                </button>
-                <button
-                  onClick={() => shareQuote('twitter')}
-                  className="flex items-center gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-black hover:bg-gray-900 text-white rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium hover:scale-105 transition-all shadow-lg"
-                >
-                  <span>🐦</span>
-                  <span className="hidden sm:inline">Twitter</span>
-                </button>
-              </div>
-            </div>
+          <div className="text-center py-24">
+            <div className="text-5xl mb-4">◆</div>
+            <p className="text-gray-300 text-base mb-2 font-light">No quotes found</p>
+            <p className="text-gray-500 text-sm">Try another category</p>
           </div>
         )}
       </main>
 
-      <footer className="relative z-10 bg-black/30 backdrop-blur-lg mt-10 sm:mt-16 md:mt-20 py-8 sm:py-10 md:py-12 border-t border-white/10">
+      {/* Footer - Better Contrast & Spacing */}
+      <footer className="relative z-10 mt-20 py-12 border-t border-white/5">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-          <div className="mb-4 sm:mb-6">
-            <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
-              saying.to 🌍
-            </h3>
-            <p className="text-sm sm:text-base text-gray-400">
-              Wisdom from every corner of Earth
-            </p>
-          </div>
-          <div className="text-xs text-gray-500 space-y-1 sm:space-y-2">
-            <p>Made with ❤️ for quote lovers worldwide</p>
-            {!isLoading && quotes.length > 0 && (
-              <p className="hidden sm:block">Currently showing {quotes.length} inspiring quotes</p>
-            )}
-          </div>
+          <p className="text-xs font-light" style={{ color: '#ffffff', opacity: 0.6, letterSpacing: '0.05em' }}>
+            SAYING • A space for reflection
+          </p>
+          <p className="text-xs font-light mt-2" style={{ color: '#ffffff', opacity: 0.4 }}>
+            © 2025 • Wisdom from every corner of Earth
+          </p>
         </div>
       </footer>
 
       <style jsx>{`
-        .animate-spin-slow {
-          animation: spin 4s linear infinite;
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+          font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
       `}</style>
     </div>
