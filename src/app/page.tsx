@@ -103,6 +103,7 @@ export default function Home() {
 
   useEffect(() => {
     loadQuotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
 
   const currentQuote = quotes[currentQuoteIndex];
@@ -158,27 +159,37 @@ export default function Home() {
         <div className="absolute top-1/2 right-10 w-8 h-8 bg-green-400 rounded-full opacity-10 animate-spin"></div>
       </div>
 
-      <header className="relative z-10 bg-black/20 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="text-2xl sm:text-3xl animate-spin-slow">🌍</div>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                  saying.to
-                </h1>
-                <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">Wisdom from every corner of Earth</p>
-              </div>
-            </div>
+      {/* New Header Design */}
+      <header className="relative z-10 py-16 md:py-20 text-center" style={{ borderBottom: '1px solid #0FA4AF' }}>
+        <div className="max-w-6xl mx-auto px-3 sm:px-4">
+          {/* Ripple Icon */}
+          <div className="mb-8 flex justify-center">
+            <svg className="w-32 h-32 md:w-40 md:h-40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="4" fill="#0FA4AF"/>
+              <circle cx="50" cy="50" r="16" stroke="#0FA4AF" strokeWidth="1.5" opacity="0.7"/>
+              <circle cx="50" cy="50" r="32" stroke="#0FA4AF" strokeWidth="1.5" opacity="0.5"/>
+              <circle cx="50" cy="50" r="48" stroke="#0FA4AF" strokeWidth="1.5" opacity="0.3"/>
+            </svg>
           </div>
+          
+          {/* Title */}
+          <h1 className="text-6xl md:text-8xl font-thin tracking-wider mb-4" style={{ color: '#0FA4AF' }}>
+            SAYING
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl font-light" style={{ color: '#0FA4AF' }}>
+            Words that echo in silence
+          </p>
         </div>
       </header>
 
+      {/* Welcome Section */}
       <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 pt-6 sm:pt-8 pb-4 sm:pb-6">
         <div className="bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-white/20 shadow-2xl">
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent mb-4">
-              Welcome to Saying.to
+              Welcome to Saying
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
               A clean and inspiring space where you can discover meaningful quotes, reflections, and short thoughts about life, happiness, and success. Every line here is created to spark inspiration and positive thinking.
