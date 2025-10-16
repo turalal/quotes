@@ -74,6 +74,7 @@ export default function Home() {
 
   useEffect(() => {
     loadQuotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
 
   const currentQuote = quotes[currentQuoteIndex];
