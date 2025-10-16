@@ -273,8 +273,12 @@ export default function Home() {
                     <button
                       onClick={nextQuote}
                       disabled={isLoading || quotes.length <= 1}
-                      className="px-8 py-3 rounded-lg font-medium text-sm transition-all hover:scale-105 active:scale-95"
-                      style={{ backgroundColor: '#0FA4AF', color: '#003135' }}
+                      className="px-8 py-3 rounded-lg font-semibold text-sm transition-all hover:scale-105 active:scale-95"
+                      style={{ 
+                        background: 'linear-gradient(135deg, #0FA4AF 0%, #089DA1 100%)',
+                        color: '#003135',
+                        boxShadow: '0 0 20px rgba(15, 164, 175, 0.3)'
+                      }}
                     >
                       Next Quote
                     </button>
@@ -282,7 +286,19 @@ export default function Home() {
                     <button
                       onClick={copyToClipboard}
                       className="px-8 py-3 rounded-lg font-medium text-sm transition-all hover:scale-105 active:scale-95"
-                      style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.3)' }}
+                      style={{ 
+                        backgroundColor: 'rgba(15, 164, 175, 0.08)',
+                        color: '#0FA4AF',
+                        border: '1px solid #0FA4AF'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(15, 164, 175, 0.4)';
+                        e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.08)';
+                      }}
                     >
                       Copy Quote
                     </button>
@@ -291,47 +307,112 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Share Section - Better Spacing */}
+            {/* Share Section - Enhanced */}
             <div className="max-w-4xl mx-auto mt-12">
-              <div className="border-t border-white/10 pt-8 pb-2">
-                <p className="text-center text-xs font-medium mb-6" style={{ color: '#0FA4AF', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  Share
+              <div className="border-t border-white/10 pt-10 pb-4">
+                <p className="text-center text-xs font-semibold mb-8" style={{ color: '#0FA4AF', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+                  Share the Wisdom
                 </p>
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-wrap gap-4 justify-center">
                   <button
                     onClick={() => shareQuote('whatsapp')}
-                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
-                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95"
+                    style={{ 
+                      backgroundColor: 'rgba(15, 164, 175, 0.1)',
+                      border: '1px solid rgba(15, 164, 175, 0.3)',
+                      color: '#0FA4AF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(15, 164, 175, 0.4)';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.1)';
+                    }}
+                    title="Share on WhatsApp"
                   >
-                    WhatsApp
+                    💬
                   </button>
                   <button
                     onClick={() => shareQuote('instagram')}
-                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
-                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95"
+                    style={{ 
+                      backgroundColor: 'rgba(15, 164, 175, 0.1)',
+                      border: '1px solid rgba(15, 164, 175, 0.3)',
+                      color: '#0FA4AF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(15, 164, 175, 0.4)';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.1)';
+                    }}
+                    title="Share on Instagram"
                   >
-                    Instagram
+                    📷
                   </button>
                   <button
                     onClick={() => shareQuote('telegram')}
-                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
-                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95"
+                    style={{ 
+                      backgroundColor: 'rgba(15, 164, 175, 0.1)',
+                      border: '1px solid rgba(15, 164, 175, 0.3)',
+                      color: '#0FA4AF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(15, 164, 175, 0.4)';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.1)';
+                    }}
+                    title="Share on Telegram"
                   >
-                    Telegram
+                    ✈️
                   </button>
                   <button
                     onClick={() => shareQuote('facebook')}
-                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
-                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95"
+                    style={{ 
+                      backgroundColor: 'rgba(15, 164, 175, 0.1)',
+                      border: '1px solid rgba(15, 164, 175, 0.3)',
+                      color: '#0FA4AF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(15, 164, 175, 0.4)';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.1)';
+                    }}
+                    title="Share on Facebook"
                   >
-                    Facebook
+                    👍
                   </button>
                   <button
                     onClick={() => shareQuote('twitter')}
-                    className="px-4 py-2 rounded-lg text-xs font-medium transition-all hover:scale-105"
-                    style={{ backgroundColor: 'rgba(15, 164, 175, 0.1)', color: '#0FA4AF', border: '1px solid rgba(15, 164, 175, 0.2)' }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95"
+                    style={{ 
+                      backgroundColor: 'rgba(15, 164, 175, 0.1)',
+                      border: '1px solid rgba(15, 164, 175, 0.3)',
+                      color: '#0FA4AF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(15, 164, 175, 0.4)';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.backgroundColor = 'rgba(15, 164, 175, 0.1)';
+                    }}
+                    title="Share on Twitter"
                   >
-                    Twitter
+                    𝕏
                   </button>
                 </div>
               </div>
@@ -349,14 +430,14 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer - Better Contrast & Spacing */}
-      <footer className="relative z-10 mt-20 py-12 border-t border-white/5">
+      {/* Footer - Enhanced */}
+      <footer className="relative z-10 mt-24 py-12 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
           <p className="text-xs font-light" style={{ color: '#ffffff', opacity: 0.6, letterSpacing: '0.05em' }}>
             SAYING • A space for reflection
           </p>
-          <p className="text-xs font-light mt-2" style={{ color: '#ffffff', opacity: 0.4 }}>
-            © 2025 • Wisdom from every corner of Earth
+          <p className="text-xs font-light mt-3" style={{ color: '#ffffff', opacity: 0.4 }}>
+            🌍 Wisdom from every corner of Earth ✨
           </p>
         </div>
       </footer>
