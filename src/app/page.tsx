@@ -208,7 +208,7 @@ export default function Home() {
                 <div className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16" style={{ backgroundColor: '#024950' }}>
                   <div className="text-center relative">
                     <blockquote className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-relaxed mb-8 px-2" style={{ color: '#AFDDE5' }}>
-                      "{currentQuote.text}"
+                      {'\u201c'}{currentQuote.text}{'\u201d'}
                     </blockquote>
 
                     <div className="flex items-center justify-center gap-3 mb-8">
