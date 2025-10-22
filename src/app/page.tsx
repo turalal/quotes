@@ -15,6 +15,11 @@ const generateGradientColor = (id: number, category: string) => {
   return categoryGradients[id % categoryGradients.length];
 };
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3719459726247715"
+     crossorigin="anonymous"></script>
+google.com, pub-3719459726247715, DIRECT, f08c47fec0942fa0
+<meta name="google-adsense-account" content="ca-pub-3719459726247715">
+
 const categories = [
   { id: 'all', name: 'All', icon: '🌟', searchTerm: '' },
   { id: 'inspirational', name: 'Inspirational', icon: '✨', searchTerm: 'inspirational' },
